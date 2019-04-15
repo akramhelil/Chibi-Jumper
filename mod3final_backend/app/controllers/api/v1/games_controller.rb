@@ -17,12 +17,8 @@ class Api::V1::GamesController < ApplicationController
       # else
       #   render json: { errors: @note.errors.full_messages }, status: :unprocessible_entity
       # end
-    end
-
-    # def create_or_find_player
-    #   Player.find || Player.create
-    # end
-    #
+    end    
+    
     private
 
     def game_params
