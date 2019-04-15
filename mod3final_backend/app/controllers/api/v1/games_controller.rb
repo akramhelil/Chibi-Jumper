@@ -6,7 +6,11 @@ class Api::V1::GamesController < ApplicationController
     end
 
     def create
+      byebug
+    @game = Game.create(game_params)
+    render json: @game
 
+    end    
       #once a game ends (collision detected), create game instance with user_id + timer score
       #this logic should find or create user_id
 
@@ -17,12 +21,11 @@ class Api::V1::GamesController < ApplicationController
       # else
       #   render json: { errors: @note.errors.full_messages }, status: :unprocessible_entity
       # end
-    end    
     
     private
 
     def game_params
-      params.permit(:title, :content)
+      params.permit(:user_id, :timer)
     end
     #
     # def find_game

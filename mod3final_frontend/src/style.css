@@ -1,0 +1,15 @@
+.logo {
+   color: blueviolet
+}
+
+/* #canvas {
+   width: 600px;
+   height: 300px;
+   border: 4px;
+   color: black
+} */
+
+.form {
+    display: flex;
+    justify-content: center;
+}
