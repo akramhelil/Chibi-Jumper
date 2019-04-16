@@ -10,83 +10,15 @@ document.addEventListener('DOMContentLoaded', function () {
   let ctx = canvas.getContext("2d")
   ctx.fillStyle = "red"
 
-
-
-
-//   function draw_projectile() {
-//        var canvas = document.getElementById('canvas');
-//        if (canvas.getContext) {
-//          var ctx = canvas.getContext('2d');
-//
-//          ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
-//          ctx.fillRect(p_width, p_height, 25, 25);
-// //
-// //            ctx.clearRect(0, 0, width, height)
-// //
-// // ctx.fillRect(state.x - 5, state.y - 5, 10, 10)
-// //
-//        }
-//      }
-
 // sleep time expects milliseconds
   function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-// // Usage!
-// sleep(500).then(() => {
-//     // Do something after the sleep!
-// });
-
-// class Projectile {
-//   constructor(width, height, ctx){
-//     this.width = width
-//     this.height = height
-//     this.speedX = -10
-//     this.ctx = ctx
-//     this.update = function() {
-//       ctx.fillRect(this.x, this.y, 25, 25)
-//     }
-//     this.newPos = function () {
-//       this.x - this.speedX
-//     }
-//   }
-//
-//   updateGameArea() {
-//     this.ctx.clearRect(0, 0, width, height)
-//
-//   }
-
-    // projectile(width, height, color, x, y) {
-    // this.width = width;
-    // this.height = height;
-    // this.speedX = 0;
-    // this.speedY = 0;
-    // this.x = x;
-    // this.y = y;
-    // this.update = function() {
-    //   ctx = myGameArea.context;
-    //   ctx.fillStyle = color;
-    //   ctx.fillRect(this.x, this.y, this.width, this.height);
-    // }
-    // this.newPos = function() {
-    //   this.x += this.speedX;
-    //   this.y += this.speedY;
-    // }
-  //
-  // draw_projectile() {
-  //   this.ctx.clearRect(0, 0, width, height)
-  //   this.ctx.fillRect(this.width, this.height, 25, 25)
-  //   this.width -= 10
-  //
-  //   if (this.width > 0) requestAnimationFrame(draw_projectile)
-  //   }
 
 
-  // }
-  //
-  // projectile1 = new Projectile(p_width, p_height, ctx)
-  // projectile1.draw_projectile()
+
+
 
 //*****************working projectile loop code*************
   //
@@ -121,71 +53,69 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //*****************projectile code begins*************
 
-// function update (speed) {
-  //   state.p_x -= speed
-  //   if (state.p_x < 0) {
-    //     // sleep(3000).then(() => {
-      //     // state.p_x += p_width
-      //     // // window.setTimeout(reset, 1000)
-      //   }
-      // }
-    let state = {
-      projectile_position: {
-        x: p_width,
-        y: 285
-      },
+//GAME STATES
+  let state = {
+    projectile_position: {
+      x: p_width,
+      y: 285
+    },
 
-      jumpman_position: {
-        x: 60,
-        y: 250
-      }
+    jumpman_position: {
+      x: 50,
+      y: 250
     }
+  }
 
-    let collision = false
-
-
+  let collision = false
+  let projectile_active = true
+  let jumping = false
+  let game_end = false
+  let timer = 0
 
     function checkCollision() {
-      console.log("jumping", jumping)
-      console.log("passing", (state.projectile_position.x <= state.jumpman_position.x+40))
 
-      if (state.projectile_position.x <= 80 && state.projectile_position.x >= 50 &&
+      // console.log("jumping", jumping)
+      // console.log("passing", (state.projectile_position.x <= state.jumpman_position.x+40))
+      // console.log(state.projectile_position.x)
+
+      if (state.projectile_position.x <= 110 && state.projectile_position.x >= 60 &&
         jumping == false) {
+          drawEnd()
+          console.log('timer is:', timer)
           collision = true
-          console.log("jumping", jumping)
+
           console.log("passing", (state.projectile_position.x <= state.jumpman_position.x+40))
 
       }
 
       if (collision === true) {
         game_end = true
-        alert('collision detected')
+        console.log(state.projectile_position.x)
         // state.projectile_position.x = 650
       }
 
     }
 
-    let projectile_active = true
-
     // function reset() {
     //   state.p_x += p_width
     // }
+  function draw_projectile() {
 
-    function draw_projectile() {
+    ctx.fillRect(state.projectile_position.x, state.projectile_position.y, 15, 15)
 
-      ctx.fillRect(state.projectile_position.x, state.projectile_position.y, 15, 15)
+  }
 
-    }
 
-    let jumping = false
 
     function draw_jumpman() {
 
       if (!jumping) {
+      ctx.fillStyle = "blue"
        thing2 = ctx.fillRect(state.jumpman_position.x, state.jumpman_position.y, 50, 50)
       }
 
       if (jumping) {
+        ctx.fillStyle = "blue"
        thing2 = ctx.fillRect(state.jumpman_position.x, state.jumpman_position.y, 50, 50)
       }
     }
@@ -194,62 +124,60 @@ document.addEventListener('DOMContentLoaded', function () {
     //   return Math.floor(Math.random() * 1500 + 200)
     // }
 
-    function projectile_update() {
-      let myArray = [400, 500, 1000, 1200, 2000, 2500]
-      let rand = myArray[Math.floor(Math.random() * myArray.length)]
+  function projectile_update() {
+    let myArray = [400, 500, 1000, 1200, 2000, 2500]
+    let rand = myArray[Math.floor(Math.random() * myArray.length)]
 
-      if (state.projectile_position.x < -15) {
-        if (projectile_active) {
-          projectile_active = false
-          timer += 100
-          sleep(rand).then(function() {
-            state.projectile_position.x = 650
-            // draw_projectile()
-            projectile_active = true
-          })
-        }
+    if (state.projectile_position.x < -15) {
+      if (projectile_active) {
+        projectile_active = false
+        timer += 100
+        sleep(rand).then(function() {
+          state.projectile_position.x = 650
+          // draw_projectile()
+          projectile_active = true
+        })
+      }
 
-      } else {
-
-        if (projectile_active == true) {
-          state.projectile_position.x -= 15
-        }
+    } else {
+      if (projectile_active == true) {
+        state.projectile_position.x -= 25
       }
     }
+  }
 
 
-    let game_end = false
 
-    // function update_jumpman() {
-    //
-    //   if(!jumping) {
-    //     jumping = true
-    //     setTimeout(land, 500)
-    //   }
-    // }
+  // function update_jumpman() {
+  //
+  //   if(!jumping) {
+  //     jumping = true
+  //     setTimeout(land, 500)
+  //   }
+  // }
 
-    function jump_up() {
-      if(!jumping) {
-        jumping = true
-        state.jumpman_position.y -= 50
-        setTimeout(land, 200)
-      }
+  function jump_up() {
+    if(!jumping) {
+      jumping = true
+      state.jumpman_position.y -= 50
+      setTimeout(land, 200)
     }
+  }
 
-    function land() {
-      if(jumping){
-        state.jumpman_position.y += 50
-        jumping=false
-      }
+  function land() {
+    if(jumping){
+      state.jumpman_position.y += 50
+      jumping=false
     }
+  }
 
-    document.addEventListener("keydown", ev => {
-      let keyPressed = ev.keyCode
-      if (keyPressed === 32) {
-       jump_up()
-       console.log("pressed down", jumping)
-     }
-   })
+  document.addEventListener("keydown", ev => {
+    let keyPressed = ev.keyCode
+    if (keyPressed === 32) {
+     jump_up()
+     console.log("pressed down", jumping)
+   }
+ })
 
       // state.jumpman_position.y -= 10
 
@@ -261,27 +189,35 @@ document.addEventListener('DOMContentLoaded', function () {
     //   state.jumpman_position.y += 10
     // }
 
-    let timer = 0
+    function drawEnd() {
+        ctx.font = "16px Arial"
+        ctx.fillStyle = "#0095DD"
+        ctx.fillText("YOU LOSE SUCKER", 300, 150)
+    }
+
+
    function drawScore() {
        ctx.font = "16px Arial"
-       ctx.fillStyle = "#0095DD"
+       ctx.fillStyle = "red"
        ctx.fillText("Score: " + timer, 8, 20)
    }
     // ************GAME LOOP BEGIN**************
     function loop() {
       ctx.clearRect(0, 0, width, height)
-      projectile_update()
-      checkCollision()
       draw_projectile()
       // update_jumpman()
       draw_jumpman()
+      checkCollision()
       drawScore()
 
+      projectile_update()
 
       //check for coxllision
       if (!game_end){
       window.requestAnimationFrame(loop)
       }
+
+
   }
 
 //**********************GAME INIT***********************
