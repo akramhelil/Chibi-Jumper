@@ -2,12 +2,14 @@
    color: blueviolet
 }
 
-/* #canvas {
-   width: 600px;
-   height: 300px;
-   border: 4px;
-   color: black
-} */
+#canvas {
+    background-color: #DDDDDD;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
 
 .form {
     display: flex;
