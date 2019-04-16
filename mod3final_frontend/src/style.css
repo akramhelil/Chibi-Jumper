@@ -1,8 +1,19 @@
-#canvas {
-  background-color: #DDDDDD;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+
+.logo {
+   color: blueviolet
 }
+
+#canvas {
+    background-color: #DDDDDD;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+}
+
