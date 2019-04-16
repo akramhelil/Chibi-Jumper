@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <script src= "src/index.js"></script>
+      <script src= "src/adapter.js" defer></script>
+    <script src= "src/index.js" defer></script>
+    <link rel="stylesheet" href="src/style.css">
     <meta charset="utf-8d">
-    <title></title>
+    <title>Jump Man</title>
   </head>
   <body>
+     
+   <h1 class="logo">Jump Man</h1>
+    <div id="play-ground">
+      <div class="form">
+      <span id="player-span">
+        
+      </span>
+        <form action="/index.html" method="post">
+          <input id="player-name" name="name" value="">
+          <button id="new-player-btn" type="submit">New Player</button>
+        </form>
+      </div>
+      <div>
+        <canvas id="canvas" width="600" height="300">
+          <!-- This is the area that we will be adding in the canvas and game screen  -->
+        </canvas>
+      </div>
+        <br>
+        <!-- this part is remporary form that will be updated once we can get the timer from the game result  -->
+        <input id="game-timer" name="timer" >
+        <input id="user-id" name="user_id" >
 
+      <button id="end-game" type="submit">End Game</button>
+    </div>
   </body>
 </html>
