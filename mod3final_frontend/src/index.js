@@ -15,11 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-
-
-
-
-
 //*****************working projectile loop code*************
   //
   // let state = {
@@ -53,16 +48,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //*****************projectile code begins*************
 
-//GAME STATES
+//*****************GAME STATES*******************
+
   let state = {
     projectile_position: {
       x: p_width,
-      y: 245
+      y: 425
     },
 
     jumpman_position: {
-      x: 50,
-      y: 225
+      x: 60,
+      y: 400
     }
   }
 
@@ -71,10 +67,12 @@ document.addEventListener('DOMContentLoaded', function () {
   let jumping = false
   let game_end = false
   let timer = 0
+  let demoState = true
+
+  //******************GAME STATE END ******************
 
   function checkCollision() {
-
-    if (state.projectile_position.x <= 120 && state.projectile_position.x >= 50 &&
+    if (state.projectile_position.x <= 150 && state.projectile_position.x >= 50 &&
     // if (state.projectile_position.x <= state.jumpman_position.x+50 && state.projectile_position.x >= 60 &&
       jumping == false) {
         drawEnd()
@@ -98,20 +96,46 @@ document.addEventListener('DOMContentLoaded', function () {
     // }
   function draw_projectile() {
     // ctx.fillRect(state.projectile_position.x, state.projectile_position.y, 15, 15)
-    ctx.drawImage(document.getElementById("dragon"),state.projectile_position.x, state.projectile_position.y, 55, 55)
+    ctx.drawImage(document.getElementById("dragon"),state.projectile_position.x, state.projectile_position.y, 75, 75)
   }
 
   function draw_background() {
-    ctx.drawImage(document.getElementById("background"),0, 0, p_width, p_height)
+    ctx.drawImage(document.getElementById("background"),-9, 0, p_width+20, p_height)
   }
 
   function draw_jumpman() {
      //  ctx.fillStyle = "blue"
      // thing2 = ctx.fillRect(state.jumpman_position.x, state.jumpman_position.y, 50, 50)
-     ctx.drawImage(document.getElementById("chibi"),state.jumpman_position.x, state.jumpman_position.y, 75, 75)
+     ctx.drawImage(document.getElementById("chibi"),state.jumpman_position.x, state.jumpman_position.y, 100, 100)
+  }
+
+  function drawInstructions(){
+   ctx.drawImage(document.getElementById("text"),200, 100, 600, 300)
   }
 
   function projectile_update() {
+    let myArray = [400, 500, 1000, 1200, 2000, 2500]
+    let rand = myArray[Math.floor(Math.random() * myArray.length)]
+
+    if (state.projectile_position.x < -100) {
+      if (projectile_active) {
+        projectile_active = false
+        timer += 100
+        sleep(rand).then(function() {
+          state.projectile_position.x = p_width
+          // draw_projectile()
+          projectile_active = true
+        })
+      }
+
+    } else {
+      if (projectile_active == true) {
+        state.projectile_position.x -= 5
+      }
+    }
+  }
+
+  function projectile_demo() {
     let myArray = [400, 500, 1000, 1200, 2000, 2500]
     let rand = myArray[Math.floor(Math.random() * myArray.length)]
 
@@ -128,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     } else {
       if (projectile_active == true) {
-        state.projectile_position.x -= 30
+        state.projectile_position.x -= 10
       }
     }
   }
@@ -146,14 +170,14 @@ document.addEventListener('DOMContentLoaded', function () {
   function jump_up() {
     if(!jumping) {
       jumping = true
-      state.jumpman_position.y -= 50
-      setTimeout(land, 200)
+      state.jumpman_position.y -= 100
+      setTimeout(land, 300)
     }
   }
 
   function land() {
     if(jumping){
-      state.jumpman_position.y += 50
+      state.jumpman_position.y += 100
       jumping=false
     }
   }
@@ -167,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
  })
 
       // state.jumpman_position.y -= 10
+
 
       // if (state.jumpman_position.y < 200) {
       // state.jumpman_position.y += 10
@@ -182,37 +207,74 @@ document.addEventListener('DOMContentLoaded', function () {
       ctx.fillText("YOU LOSE SUCKER", 300, 150)
   }
 
-   function drawScore() {
-       ctx.font = "16px Arial"
-       ctx.fillStyle = "red"
-       ctx.fillText("Score: " + timer, 8, 20)
-   }
-    // ************GAME LOOP BEGIN**************
-    function loop() {
-      ctx.clearRect(0, 0, width, height)
-      draw_background()
-      draw_jumpman()
-      draw_projectile()
-      // update_jumpman()
-      checkCollision()
-      drawScore()
-
-      projectile_update()
-
-      //check for coxllision
-      if (!game_end){
-      window.requestAnimationFrame(loop)
+ function drawScore() {
+     ctx.font = "16px Arial"
+     ctx.fillStyle = "red"
+     ctx.fillText("Score: " + timer, 8, 20)
+ }
+  // ************GAME LOOP BEGIN**************
+  function loop() {
+    ctx.clearRect(0, 0, width, height)
+    draw_background()
+    draw_jumpman()
+    draw_projectile()
+    checkCollision()
+    drawScore()
+    projectile_update()
+    if (!game_end){
+    window.requestAnimationFrame(loop)
     }
-
-
   }
 
+  document.addEventListener("keydown", ev => {
+    let keyPressed = ev.keyCode
+    if (keyPressed === 13) {
+     demoState = false
+     console.log('demo state is now', demoState)
+   }
+  })
+
+  function gameStartCountDown () {
+    draw_background()
+    draw_jumpman()
+    drawInstructions()
+    draw_projectile()
+    projectile_update()
+    console.log('inside loop demostate is:', demoState)
+    if (demoState){
+      window.requestAnimationFrame(gameStartCountDown)
+    }
+
+    if (!demoState){
+      window.requestAnimationFrame(loop)
+    }
+}
+
+  function gameDemoStart() {
+    console.log('demoState is', demoState)
+
+    window.requestAnimationFrame(gameStartCountDown)
+
+
+
+      // window.requestAnimationFrame(loop)
+
+    // window.requestAnimationFrame(loop)
+  }
+
+  // function gameStart() {
+  //   window.requestAnimationFrame(loop)
+  //   // window.requestAnimationFrame(loop)
+  // }
 //**********************GAME INIT***********************
 
-    window.requestAnimationFrame(loop)
 
-
+    // window.requestAnimationFrame(loop)
+    gameDemoStart()
 })
+
+
+
 
 
 //******************form code********
