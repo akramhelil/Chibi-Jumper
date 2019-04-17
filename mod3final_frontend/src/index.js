@@ -4,7 +4,7 @@ console.log('hello world')
 document.addEventListener('DOMContentLoaded', function () {
   let canvas = document.getElementById("canvas")
   let p_width = canvas.width
-  let p_height = canvas.height-15
+  let p_height = canvas.height
   let width = canvas.width
   let height = canvas.height
   let ctx = canvas.getContext("2d")
@@ -57,12 +57,12 @@ document.addEventListener('DOMContentLoaded', function () {
   let state = {
     projectile_position: {
       x: p_width,
-      y: 285
+      y: 245
     },
 
     jumpman_position: {
       x: 50,
-      y: 250
+      y: 225
     }
   }
 
@@ -72,63 +72,50 @@ document.addEventListener('DOMContentLoaded', function () {
   let game_end = false
   let timer = 0
 
-    function checkCollision() {
+  function checkCollision() {
 
-      // console.log("jumping", jumping)
-      // console.log("passing", (state.projectile_position.x <= state.jumpman_position.x+40))
-      // console.log(state.projectile_position.x)
+    if (state.projectile_position.x <= 120 && state.projectile_position.x >= 50 &&
+    // if (state.projectile_position.x <= state.jumpman_position.x+50 && state.projectile_position.x >= 60 &&
+      jumping == false) {
+        drawEnd()
+        console.log('timer is:', timer)
+        collision = true
 
-      if (state.projectile_position.x <= 110 && state.projectile_position.x >= 60 &&
-        jumping == false) {
-          drawEnd()
-          console.log('timer is:', timer)
-          collision = true
-
-          console.log("passing", (state.projectile_position.x <= state.jumpman_position.x+40))
-
-      }
-
-      if (collision === true) {
-        game_end = true
-        console.log(state.projectile_position.x)
-        // state.projectile_position.x = 650
-      }
+        console.log("passing", (state.projectile_position.x <= state.jumpman_position.x+40))
 
     }
+
+    if (collision === true) {
+      game_end = true
+      console.log(state.projectile_position.x)
+      // state.projectile_position.x = 650
+    }
+
+  }
 
     // function reset() {
     //   state.p_x += p_width
     // }
   function draw_projectile() {
-
-    ctx.fillRect(state.projectile_position.x, state.projectile_position.y, 15, 15)
-
+    // ctx.fillRect(state.projectile_position.x, state.projectile_position.y, 15, 15)
+    ctx.drawImage(document.getElementById("dragon"),state.projectile_position.x, state.projectile_position.y, 55, 55)
   }
 
+  function draw_background() {
+    ctx.drawImage(document.getElementById("background"),0, 0, p_width, p_height)
+  }
 
-
-    function draw_jumpman() {
-
-      if (!jumping) {
-      ctx.fillStyle = "blue"
-       thing2 = ctx.fillRect(state.jumpman_position.x, state.jumpman_position.y, 50, 50)
-      }
-
-      if (jumping) {
-        ctx.fillStyle = "blue"
-       thing2 = ctx.fillRect(state.jumpman_position.x, state.jumpman_position.y, 50, 50)
-      }
-    }
-    //
-    // function random() {
-    //   return Math.floor(Math.random() * 1500 + 200)
-    // }
+  function draw_jumpman() {
+     //  ctx.fillStyle = "blue"
+     // thing2 = ctx.fillRect(state.jumpman_position.x, state.jumpman_position.y, 50, 50)
+     ctx.drawImage(document.getElementById("chibi"),state.jumpman_position.x, state.jumpman_position.y, 75, 75)
+  }
 
   function projectile_update() {
     let myArray = [400, 500, 1000, 1200, 2000, 2500]
     let rand = myArray[Math.floor(Math.random() * myArray.length)]
 
-    if (state.projectile_position.x < -15) {
+    if (state.projectile_position.x < -55) {
       if (projectile_active) {
         projectile_active = false
         timer += 100
@@ -141,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     } else {
       if (projectile_active == true) {
-        state.projectile_position.x -= 25
+        state.projectile_position.x -= 30
       }
     }
   }
@@ -189,12 +176,11 @@ document.addEventListener('DOMContentLoaded', function () {
     //   state.jumpman_position.y += 10
     // }
 
-    function drawEnd() {
-        ctx.font = "16px Arial"
-        ctx.fillStyle = "#0095DD"
-        ctx.fillText("YOU LOSE SUCKER", 300, 150)
-    }
-
+  function drawEnd() {
+      ctx.font = "16px Arial"
+      ctx.fillStyle = "#0095DD"
+      ctx.fillText("YOU LOSE SUCKER", 300, 150)
+  }
 
    function drawScore() {
        ctx.font = "16px Arial"
@@ -204,9 +190,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // ************GAME LOOP BEGIN**************
     function loop() {
       ctx.clearRect(0, 0, width, height)
+      draw_background()
+      draw_jumpman()
       draw_projectile()
       // update_jumpman()
-      draw_jumpman()
       checkCollision()
       drawScore()
 
@@ -215,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
       //check for coxllision
       if (!game_end){
       window.requestAnimationFrame(loop)
-      }
+    }
 
 
   }
