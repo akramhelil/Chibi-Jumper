@@ -30,4 +30,3 @@ const adapter = {
 				.then(console.log)
 		}
 }// end of the Adapter
-
