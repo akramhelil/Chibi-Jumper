@@ -11,7 +11,8 @@ const adapter = {
 			},
 			body: JSON.stringify({ name: playerName })
 		}).then(res => res.json())
-	}, //end of the create Player 
+	}, //end of the create Player
+
 
 	createGame: (playerId, timer) => {
 			return fetch(newGameUrl, {
@@ -29,3 +30,4 @@ const adapter = {
 				.then(console.log)
 		}
 }// end of the Adapter
+

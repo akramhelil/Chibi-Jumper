@@ -1,19 +1,23 @@
 console.log("hello world")
+
 let timer = 0
 
 document.addEventListener("DOMContentLoaded", function() {
 	let canvas = document.getElementById("canvas")
 	let p_width = canvas.width
 	let p_height = canvas.height
+
 	let width = canvas.width
 	let height = canvas.height
 	let ctx = canvas.getContext("2d")
 	ctx.fillStyle = "red"
 
+
 	// sleep time expects milliseconds
 	function sleep(time) {
 		return new Promise(resolve => setTimeout(resolve, time))
 	}
+
 
 	function showForm() {
 		let modal = document.querySelector(".modal")
@@ -65,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			y: 225
 		}
 	}
+
 
 	let collision = false
 	let projectile_active = true
@@ -223,6 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	}
 
+
 	//**********************GAME INIT***********************
 
 	window.requestAnimationFrame(loop)
@@ -237,15 +243,18 @@ formField.addEventListener("submit", ev => {
 	const modal = document.querySelector(".modal")
 	const playerName = document.querySelector("#player-name").value
 
-	function renderPlayerName(player) {
+
 		const playerId = player.id
+
 		formField.innerHTML = `<h2 data-id="${player.id}">
 		${player.name} </h2>
 		<h3>Your Score: ${timer}</h3>
 		`
+
 		adapter.createGame(playerId, timer)
 	}
 	adapter.createPlayer(playerName).then(player => {
 		renderPlayerName(player)
 	})
 }) // end of the submit action
+
