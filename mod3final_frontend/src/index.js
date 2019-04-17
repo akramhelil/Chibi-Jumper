@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	//**********************GAME INIT***********************
 
 	window.requestAnimationFrame(loop)
-})
+// })
 
 
 
