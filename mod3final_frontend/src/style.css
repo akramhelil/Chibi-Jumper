@@ -101,3 +101,23 @@
       transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
   }
 
+  /*
+  .headerLogo {
+  padding: 60px;
+  margin-top: -30px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+  }
+  .header {
+    padding: 60px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+    font-size: 30px;
+  } */
+
+  body {
+    background: #CCC;
+  }
