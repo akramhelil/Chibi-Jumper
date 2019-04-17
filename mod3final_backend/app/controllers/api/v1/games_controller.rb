@@ -25,7 +25,7 @@ class Api::V1::GamesController < ApplicationController
     private
 
     def game_params
-      params.permit(:user_id, :timer)
+      params.permit(:player_id, :timer)
     end
     #
     # def find_game

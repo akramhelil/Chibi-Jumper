@@ -11,10 +11,10 @@ const adapter = {
 			},
 			body: JSON.stringify({ name: playerName })
 		}).then(res => res.json())
-	}, //end of the create Player 
+	}, //end of the create Player
 
-	createGame: (gameData) => {
-		return function newGame() {
+	createGame: gameData => {
+		return function newGame(gameData) {
 			fetch(newGameUrl, {
 				method: "POST",
 				headers: {
@@ -26,5 +26,5 @@ const adapter = {
 				.then(res => res.json())
 				.then(console.log)
 		}
-	}//end of the createGame
-}// end of the Adapter
+	} //end of the createGame
+} // end of the Adapter
