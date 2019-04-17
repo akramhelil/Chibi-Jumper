@@ -249,5 +249,6 @@ formField.addEventListener("submit", ev => {
 	}
 	adapter.createPlayer(playerName).then(player => {
 		renderPlayerName(player)
+		
 	})
 }) // end of the submit action
