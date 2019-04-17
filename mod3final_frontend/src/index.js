@@ -1,6 +1,7 @@
 
 
-console.log('hello world')
+let timer = 0
+// console.log('hello world')
 
 document.addEventListener('DOMContentLoaded', function () {
   let canvas = document.getElementById("canvas")
@@ -72,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let projectile_active = true
   let jumping = false
   let game_end = false
-  let timer = 0
   let demoState = true
 
   //******************GAME STATE END ******************
@@ -82,16 +82,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // if (state.projectile_position.x <= state.jumpman_position.x+50 && state.projectile_position.x >= 60 &&
       jumping == false) {
         drawEnd()
-        console.log('timer is:', timer)
+      //   console.log('timer is:', timer)
         collision = true
         showForm()
-        console.log("passing", (state.projectile_position.x <= state.jumpman_position.x+40))
+      //   console.log("passing", (state.projectile_position.x <= state.jumpman_position.x+40))
 
     }
 
     if (collision === true) {
       game_end = true
-      console.log(state.projectile_position.x)
+      // console.log(state.projectile_position.x)
       // state.projectile_position.x = 650
     }
 
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let keyPressed = ev.keyCode
     if (keyPressed === 32) {
      jump_up()
-     console.log("pressed down", jumping)
+   //   console.log("pressed down", jumping)
    }
  })
 
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let keyPressed = ev.keyCode
     if (keyPressed === 13) {
      demoState = false
-     console.log('demo state is now', demoState)
+   //   console.log('demo state is now', demoState)
    }
   })
 
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
     drawInstructions()
     draw_projectile()
     projectile_update()
-    console.log('inside loop demostate is:', demoState)
+   //  console.log('inside loop demostate is:', demoState)
     if (demoState){
       window.requestAnimationFrame(gameStartCountDown)
     }
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
   function gameDemoStart() {
-    console.log('demoState is', demoState)
+   //  console.log('demoState is', demoState)
 
     window.requestAnimationFrame(gameStartCountDown)
 
@@ -316,7 +316,7 @@ const formField = document.querySelector("form")
 
 formField.addEventListener("submit", ev => {
 	ev.preventDefault()
-	const modal = document.querySelector(".modal")
+	// const modal = document.querySelector(".modal")
 	const playerName = document.querySelector("#player-name").value
 
 	function renderPlayerName(player) {
@@ -329,6 +329,5 @@ formField.addEventListener("submit", ev => {
 	}
 	adapter.createPlayer(playerName).then(player => {
 		renderPlayerName(player)
-
 	})
 }) // end of the submit action
