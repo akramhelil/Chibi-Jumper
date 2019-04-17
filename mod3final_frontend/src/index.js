@@ -102,15 +102,21 @@ document.addEventListener('DOMContentLoaded', function () {
       gameSpeed = 20
 
     } else if (timer >= 500 && timer < 1500) {
-      gameSpeed = 35
+      gameSpeed = 25
 
     } else if (timer >= 1500 && timer < 3000)  {
-      gameSpeed = 40
+      gameSpeed = 30
 
     } else if (timer >= 3000 && timer < 4500) {
+      gameSpeed = 35
+
+    } else if (timer >= 4500 && timer < 6000){
+      gameSpeed = 40
+
+    } else if (timer >= 6000 && timer < 7500){
       gameSpeed = 45
 
-    } else if (timer >= 4500 && timer < 99999999999){
+    } else if (timer >= 7500 && timer < 99999999999){
       gameSpeed = 55
     }
   }
@@ -124,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (projectile_active) {
 
         projectile_active = false
-        timer +=  300
+        timer +=  250
 
         sleep(rand).then(function() {
           state.projectile_position.x = p_width
@@ -179,8 +185,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //*********EVENT LISTENERS**************
   document.addEventListener("keydown", ev => {
+
     let keyPressed = ev.keyCode
+    ev.preventDefault()
     if (keyPressed === 32) {
+
      jump_up()
      canvas.innerHTML += '<audio src="./src/images/jump.wav" autoplay="autoplay">'
    }
