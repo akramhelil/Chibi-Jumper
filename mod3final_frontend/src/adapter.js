@@ -13,18 +13,19 @@ const adapter = {
 		}).then(res => res.json())
 	}, //end of the create Player 
 
-	createGame: (gameData) => {
-		return function newGame() {
-			fetch(newGameUrl, {
+	createGame: (playerId, timer) => {
+			return fetch(newGameUrl, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Accept: "application/json"
+					"Accept": "application/json"
 				},
-				body: JSON.stringify(gameData)
+				body: JSON.stringify({
+					player_id: playerId,
+					timer: timer
+				})
 			})
 				.then(res => res.json())
 				.then(console.log)
 		}
-	}//end of the createGame
 }// end of the Adapter

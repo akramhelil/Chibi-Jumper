@@ -14,16 +14,27 @@
   </head>
   <body>
 
-   <h1 class="logo">Jump Man</h1>
-    <div id="play-ground">
-      <div class="form">
-      <span id="player-span">
+  <h1 class="logo">Jump Man</h1>
+  <div id="play-ground">
 
-      </span>
-        <form action="/index.html" method="post">
-          <input id="player-name" name="name" value="">
-          <button id="new-player-btn" type="submit">New Player</button>
-        </form>
+    <!-- Start Game Button> -->
+    <span id="player-span">
+      <button id="start-game" type="submit">Start Game</button>
+
+
+      <!-- Trigger the Modal Form -->
+      <div class="modal">
+        <div class="modal-content">
+          <h1>You Lost this Game!</h1>
+          <span>
+
+          </span>
+          <form action="/index.html" method="post">
+            <label for="name">Please Enter Your Name:</label>
+            <input id="player-name" name="name" value="">
+            <button id="new-player-btn" type="submit">Submit</button>
+          </form>
+        </div>
       </div>
       <div>
         <canvas id="canvas" width="600" height="300">
