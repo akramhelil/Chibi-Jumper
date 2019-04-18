@@ -28,5 +28,10 @@ const adapter = {
 			})
 				.then(res => res.json())
 				.then(console.log)
+		},
+
+		getGames: () => {
+			return fetch(newGameUrl)
+			.then(res => res.json())
 		}
 }// end of the Adapter

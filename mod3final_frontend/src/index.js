@@ -334,6 +334,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	// window.requestAnimationFrame(loop)
 	gameDemoStart()
+	adapter.getGames().then(games => {
+		console.log(games)
+		// render the games to the table
+		const table = document.querySelector("#table-info")
+		games.forEach(game => {
+			table.innerHTML += ` <td>${game.player.name}</td> 
+			  <td>${game.timer}</td>`
+		})
+	})
 })
 
 //******************form code********
