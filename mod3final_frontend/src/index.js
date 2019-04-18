@@ -1,5 +1,3 @@
-
-
 let timer = 0
 // console.log('hello world')
 
@@ -345,6 +343,148 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 
+	document.addEventListener("keydown", ev => {
+		let keyPressed = ev.keyCode
+		if (keyPressed === 83 && game_end) {
+			showForm()
+			console.log("showing form")
+			demoState = false
+		}
+	})
+
+	document.addEventListener("keydown", ev => {
+		let keyPressed = ev.keyCode
+		if (keyPressed === 77 && game_end) {
+			showForm()
+			console.log("showing form")
+			demoState = false
+		}
+	})
+
+	document.addEventListener("keydown", ev => {
+		let keyPressed = ev.keyCode
+		if (keyPressed === 77 && game_end) {
+			showForm()
+			console.log("showing form")
+			demoState = false
+		}
+	})
+
+	//*********DRAW FUNCTIONS**************
+
+	function draw_projectile() {
+		// ctx.fillRect(state.projectile_position.x, state.projectile_position.y, 15, 15)
+		ctx.drawImage(
+			document.getElementById("dragon"),
+			state.projectile_position.x,
+			state.projectile_position.y,
+			75,
+			75
+		)
+	}
+
+	function draw_background() {
+		ctx.drawImage(
+			document.getElementById("background"),
+			-9,
+			0,
+			p_width + 20,
+			p_height
+		)
+	}
+
+	function draw_jumpman() {
+		//  ctx.fillStyle = "blue"
+		// thing2 = ctx.fillRect(state.jumpman_position.x, state.jumpman_position.y, 50, 50)
+		ctx.drawImage(
+			document.getElementById("chibi"),
+			state.jumpman_position.x,
+			state.jumpman_position.y,
+			100,
+			100
+		)
+	}
+
+	function drawInstructions() {
+		ctx.drawImage(document.getElementById("text"), 200, 100, 600, 300)
+	}
+
+	function drawGameOver() {
+		ctx.drawImage(document.getElementById("gameover"), 200, 100, 600, 300)
+	}
+
+	function drawEnd() {
+		ctx.font = "16px Arial"
+		ctx.fillStyle = "#0095DD"
+		ctx.fillText("YOU LOSE SUCKER", 300, 150)
+	}
+
+	function drawScore() {
+		ctx.font = "24px Arial"
+		ctx.fillStyle = "#BC3429"
+		ctx.fillText("Score: " + timer, 10, 30)
+	}
+
+	// ************GAME LOOP BEGIN**************
+	function loop() {
+		console.log("gamespeed is", gameSpeed)
+		ctx.clearRect(0, 0, width, height)
+		checkGameSpeed()
+		draw_background()
+		draw_jumpman()
+		draw_projectile()
+		checkCollision()
+		drawScore()
+		projectile_update()
+		if (!game_end) {
+			window.requestAnimationFrame(loop)
+		} else if (game_end) {
+			demoState = true
+			drawGameOver()
+			// location.reload()
+			//animate losing frame
+			// gameStartCountDown()
+			console.log("demoState is", demoState)
+		}
+	}
+
+	function gameStartCountDown() {
+		game_end = false
+		ctx.clearRect(0, 0, width, height)
+		draw_background()
+		draw_jumpman()
+		drawInstructions()
+		// draw_projectile()
+		projectile_update()
+		//  console.log('inside loop demostate is:', demoState)
+		if (demoState) {
+			window.requestAnimationFrame(gameStartCountDown)
+		}
+
+		if (!demoState) {
+			timer = 0
+			ctx.clearRect(0, 0, width, height)
+			window.requestAnimationFrame(loop)
+		}
+	}
+
+	function gameDemoStart() {
+		window.requestAnimationFrame(gameStartCountDown)
+	}
+	//**********************GAME INIT***********************
+
+	// window.requestAnimationFrame(loop)
+	gameDemoStart()
+	adapter.getGames().then(games => {
+		console.log(games)
+		// render the games to the table
+		const table = document.querySelector("#table-info")
+		games.forEach(game => {
+			table.innerHTML += ` <td>${game.player.name}</td> 
+			  <td>${game.timer}</td>`
+		})
+	})
+})
 
 //******************form code********
 
@@ -357,9 +497,9 @@ formField.addEventListener("submit", ev => {
 
 	function renderPlayerName(player) {
 		const playerId = player.id
-		formField.innerHTML = `<h2 data-id="${player.id}">
+		formField.innerHTML = `<h2 id="modal-title-text" data-id="${player.id}">
 		${player.name} </h2>
-		<h3>Your Score: ${timer}</h3>
+		<h3 id="modal-title-text">Your Score: ${timer}</h3>
 		`
 		adapter.createGame(playerId, timer)
 	}
