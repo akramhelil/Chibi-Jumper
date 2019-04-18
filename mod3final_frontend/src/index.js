@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function showForm() {
     let modal = document.querySelector(".modalNEW")
     modal.classList.toggle("show-modalNEW")
+    form_active = true
   }
 
 //*****************working projectile loop code*************
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let game_end = false
   let demoState = true
   let gameSpeed = 15
-
+  let form_active = false
 
 
 
@@ -190,11 +191,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 //*********EVENT LISTENERS**************
+
+
   document.addEventListener("keydown", ev => {
 
     let keyPressed = ev.keyCode
-    ev.preventDefault()
-    if (keyPressed === 32) {
+
+    if (keyPressed === 74 && !game_end) {
      jump_up()
      canvas.innerHTML += '<audio src="./src/images/jump.wav" autoplay="autoplay">'
    }
@@ -202,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.addEventListener("keydown", ev => {
    let keyPressed = ev.keyCode
-   if (keyPressed === 78 && game_end) {
+   if (keyPressed === 78 && game_end && !form_active) {
      ctx.clearRect(0, 0, width, height)
     location.reload()
    }
@@ -210,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.addEventListener("keydown", ev => {
     let keyPressed = ev.keyCode
-    if (keyPressed === 13) {
+    if (keyPressed === 13 && !form_active) {
       console.log('key down detected, demoState is', demoState)
       state.projectile_position.x = p_width
      demoState = false
@@ -219,7 +222,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.addEventListener("keydown", ev => {
     let keyPressed = ev.keyCode
-    if (keyPressed === 83 && game_end) {
+    if (keyPressed === 83 && game_end && !form_active) {
+      showForm()
+      console.log('showing form')
+     demoState = false
+   }
+  })
+
+  document.addEventListener("keydown", ev => {
+    let keyPressed = ev.keyCode
+    if (keyPressed === 77 && game_end && !form_active) {
       showForm()
       console.log('showing form')
      demoState = false
@@ -229,17 +241,12 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener("keydown", ev => {
     let keyPressed = ev.keyCode
     if (keyPressed === 77 && game_end) {
-      showForm()
-      console.log('showing form')
-     demoState = false
-   }
-  })
+      form_active = true
+      console.log('showing form, form_active is', form_active)
 
-  document.addEventListener("keydown", ev => {
-    let keyPressed = ev.keyCode
-    if (keyPressed === 77 && game_end) {
-      showForm()
-      console.log('showing form')
+        showForm()
+
+
      demoState = false
    }
   })
@@ -358,5 +365,6 @@ formField.addEventListener("submit", ev => {
 	}
 	adapter.createPlayer(playerName).then(player => {
 		renderPlayerName(player)
+    form_active = false
 	})
 }) // end of the submit action
