@@ -9,8 +9,8 @@
 }
 
 #nav {
-  background: #BC3429 ;
-  margin-top: -25px;
+  background: #9e1316 ;
+  margin-top: -30px;
   margin-bottom: 100px;
   /* padding-bottom: px; */
   padding-top: 20px;
@@ -18,7 +18,7 @@
 }
 
 #footer{
-  background: #BC3429;
+  background: #9e1316;
 }
 
 
@@ -39,7 +39,7 @@
 }
 
 
-.modal {
+.modalNEW {
     position: fixed;
     left: 0;
     top: 0;
@@ -52,7 +52,7 @@
     transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
 }
 
-.modal-content {
+.modal-contentNEW {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -63,7 +63,7 @@
     border-radius: 0.5rem;
 }
 
-.show-modal {
+.show-modalNEW {
     opacity: 1;
     visibility: visible;
     transform: scale(1.0);
@@ -89,7 +89,7 @@
     color: #666;
   }
 
-
+/*
   .modal {
       position: fixed;
       left: 0;
@@ -119,7 +119,7 @@
       visibility: visible;
       transform: scale(1.0);
       transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-  }
+  } */
 
   /*
   .headerLogo {
@@ -141,4 +141,57 @@
   body {
     background: #FFBA15;
 
+  }
+
+  /* ***************************side panel*************** */
+
+  /* panel layout mechanics */
+  .panel-wrap {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 30em;
+    transform: translateX(100%);
+    transition: .3s ease-out;
+  }
+  .panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #333;
+    color: #eee;
+    overflow: auto;
+    padding: 1em;
+  }
+
+  /* simulate panel state control --
+  this can also be triggered by a
+  class name added to the body tag.
+  Just using a checkbox sibling here
+  for simplicity
+  */
+  [type="checkbox"]:checked ~ .panel-wrap {
+    transform: translateX(0%);
+  }
+
+
+  /* demo display */
+  *,*:before, *:after {box-sizing: border-box;}
+
+  body {
+    font-family: sans-serif;
+    font-size: 18px;
+  }
+  h3 {
+    margin: 0;
+  }
+  p {
+    line-height: 1.4;
+    margin: 2em 0 0 0;
+  }
+  [type="checkbox"] {
+    font-size: 1em;
   }
