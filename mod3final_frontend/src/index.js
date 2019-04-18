@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let width = canvas.width
   let height = canvas.height
   let ctx = canvas.getContext("2d")
+  // let instance = M.Sidenav.getInstance(elem)
 
   ctx.fillStyle = "red"
 
@@ -20,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function showForm() {
-    let modal = document.querySelector(".modal")
-    modal.classList.toggle("show-modal")
+    let modal = document.querySelector(".modalNEW")
+    modal.classList.toggle("show-modalNEW")
   }
 
 //*****************working projectile loop code*************
@@ -80,13 +81,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
   function checkCollision() {
 
     if (state.projectile_position.x <= 150 && state.projectile_position.x >= 50 && jumping == false) {
 
-      drawEnd()
+      // drawEnd()
+      // showForm()
 
       collision = true
+      // showForm()
     }
 
     if (collision == true) {
@@ -191,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let keyPressed = ev.keyCode
     ev.preventDefault()
     if (keyPressed === 32) {
-
      jump_up()
      canvas.innerHTML += '<audio src="./src/images/jump.wav" autoplay="autoplay">'
    }
@@ -199,8 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.addEventListener("keydown", ev => {
    let keyPressed = ev.keyCode
-
-   if (keyPressed === 78) {
+   if (keyPressed === 78 && game_end) {
      ctx.clearRect(0, 0, width, height)
     location.reload()
    }
@@ -214,6 +216,35 @@ document.addEventListener('DOMContentLoaded', function () {
      demoState = false
    }
   })
+
+  document.addEventListener("keydown", ev => {
+    let keyPressed = ev.keyCode
+    if (keyPressed === 83 && game_end) {
+      showForm()
+      console.log('showing form')
+     demoState = false
+   }
+  })
+
+  document.addEventListener("keydown", ev => {
+    let keyPressed = ev.keyCode
+    if (keyPressed === 77 && game_end) {
+      showForm()
+      console.log('showing form')
+     demoState = false
+   }
+  })
+
+  document.addEventListener("keydown", ev => {
+    let keyPressed = ev.keyCode
+    if (keyPressed === 77 && game_end) {
+      showForm()
+      console.log('showing form')
+     demoState = false
+   }
+  })
+
+
 
   //*********DRAW FUNCTIONS**************
 
