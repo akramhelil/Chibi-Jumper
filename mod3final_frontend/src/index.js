@@ -85,11 +85,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (state.projectile_position.x <= 150 && state.projectile_position.x >= 50 && jumping == false) {
 
       drawEnd()
+
       collision = true
     }
 
     if (collision == true) {
       game_end = true
+      // showform()
     }
   }
 
@@ -246,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
  function drawScore() {
      ctx.font = "24px Arial"
-     ctx.fillStyle = "#666"
+     ctx.fillStyle = "#BC3429"
      ctx.fillText("Score: " + timer, 10, 30)
  }
 
