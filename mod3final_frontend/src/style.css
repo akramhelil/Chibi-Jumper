@@ -1,12 +1,32 @@
 
-.logo {
+
+#logo {
    color: #42343D;
+   position: relative
+   text-align: center;
+   width: 100%;
+   display: block;
 }
+
+#nav {
+  background: #BC3429 ;
+  margin-top: -25px;
+  margin-bottom: 100px;
+  /* padding-bottom: px; */
+  padding-top: 20px;
+  height: 100px;
+}
+
+#footer{
+  background: #BC3429;
+}
+
 
 #canvas {
     background-color: #DDDDDD;
     padding-left: 0;
     padding-right: 0;
+    margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -119,5 +139,6 @@
   } */
 
   body {
-    background: #CCC;
+    background: #FFBA15;
+
   }
