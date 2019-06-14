@@ -5,10 +5,4 @@ class Api::V1::PlayersController < ApplicationController
       render json: @player
    end
 
-   private 
-
-   # def player_params
-   #    params.require(:player).permit(:name)
-   # end
-   
 end
