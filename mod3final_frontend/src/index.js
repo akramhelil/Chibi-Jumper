@@ -1,15 +1,13 @@
 let timer = 0
-// console.log('hello world')
 
 document.addEventListener('DOMContentLoaded', function () {
   let canvas = document.getElementById("canvas")
-  let jump_sound = document.getElementById("#jump")
-  let p_width = canvas.width
-  let p_height = canvas.height
+  let jumpSound = document.getElementById("#jump")
+  let pWidth = canvas.width
+  let pHeight = canvas.height
   let width = canvas.width
   let height = canvas.height
   let ctx = canvas.getContext("2d")
-  // let instance = M.Sidenav.getInstance(elem)
   let modal = document.querySelector(".modalNEW")
 
   ctx.fillStyle = "red"
@@ -22,89 +20,41 @@ document.addEventListener('DOMContentLoaded', function () {
   function showForm() {
     let modal = document.querySelector(".modalNEW")
     modal.classList.toggle("show-modalNEW")
-    form_active = true
+    formActive = true
   }
-
-  //
-  // document.addEventListener('click', function(e) {
-  //   if (event.target == modal) {
-  //     form_active = false;
-  //     modal.style.display = "none";
-  //     console.log('after modal exit form active is:', game_end)
-  // }
-  // })
-
-//*****************working projectile loop code*************
-  //
-  // let state = {
-  //   p_x: p_width,
-  //   p_y: p_height
-  // }
-  //
-  // function update () {
-  //   state.p_x -= 10
-  //   if (state.p_x < 0) {
-  //
-  //       state.p_x += p_width
-  //
-  //   }
-  // }
-  //
-  // function draw_projectile() {
-  //   ctx.clearRect(0, 0, width, height)
-  //   ctx.fillRect(state.p_x, state.p_y, 25, 25)
-  // }
-  //
-  // function loop() {
-  //   // let progress = timestamp - lastRender
-  //   update()
-  //   draw_projectile()
-  //   // window.requestAnimationFrame(loop)
-  // }
-  //
-  // lastRender = 0
-  // window.requestAnimationFrame(loop)
-
-//*****************projectile code begins*************
 
 //*************GAME STATE****************
 
   let state = {
-    projectile_position: {
-      x: p_width,
+    projectilePosition: {
+      x: pWidth,
       y: 425
     },
 
-    jumpman_position: {
+    jumpmanPosition: {
       x: 60,
       y: 400
     }
   }
 
   let collision = false
-  let projectile_active = true
+  let projectileActive = true
   let jumping = false
-  let game_end = false
+  let gameEnd = false
   let demoState = true
   let gameSpeed = 15
-  let form_active = false
+  let formActive = false
 
 
 
   function checkCollision() {
 
-    if (state.projectile_position.x <= 150 && state.projectile_position.x >= 50 && jumping == false) {
-
-      // drawEnd()
-      // showForm()
-
+    if (state.projectilePosition.x <= 150 && state.projectilePosition.x >= 50 && jumping == false) {
       collision = true
-      // showForm()
     }
 
     if (collision == true) {
-      game_end = true
-      // showform()
+      gameEnd = true
     }
   }
 
@@ -136,84 +86,79 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function projectile_update() {
+  function projectileUpdate() {
 
     let myArray = [400, 500, 1000, 1200, 2000, 2500]
     let rand = myArray[Math.floor(Math.random() * myArray.length)]
 
-    if (state.projectile_position.x < -100) {
-      if (projectile_active) {
+    if (state.projectilePosition.x < -100) {
+      if (projectileActive) {
 
-        projectile_active = false
+        projectileActive = false
         timer +=  250
 
         sleep(rand).then(function() {
-          state.projectile_position.x = p_width
-          // draw_projectile()
-          projectile_active = true
+          state.projectilePosition.x = pWidth
+          projectileActive = true
         })
       }
 
     } else {
-      if (projectile_active == true) {
-        state.projectile_position.x -= gameSpeed
+      if (projectileActive == true) {
+        state.projectilePosition.x -= gameSpeed
       }
     }
   }
 
-  function projectile_demo() {
+  function projectileDemo() {
     let myArray = [400, 500, 1000, 1200, 2000, 2500, 2500, 2500]
     let rand = myArray[Math.floor(Math.random() * myArray.length)]
 
-    if (state.projectile_position.x < -55) {
-      if (projectile_active) {
-        projectile_active = false
+    if (state.projectilePosition.x < -55) {
+      if (projectileActive) {
+        projectileActive = false
         timer += 100
         sleep(rand).then(function() {
-          state.projectile_position.x = 650
-          // draw_projectile()
-          projectile_active = true
+          state.projectilePosition.x = 650
+          // drawProjectile()
+          projectileActive = true
         })
       }
 
     } else {
-      if (projectile_active == true) {
-        state.projectile_position.x -= 10
+      if (projectileActive == true) {
+        state.projectilePosition.x -= 10
       }
     }
   }
 
-  function jump_up() {
+  function jumpUP() {
     if(!jumping) {
       jumping = true
-      state.jumpman_position.y -= 100
+      state.jumpmanPosition.y -= 100
       setTimeout(land, 230)
     }
   }
 
   function land() {
     if(jumping){
-      state.jumpman_position.y += 100
+      state.jumpmanPosition.y += 100
       jumping=false
     }
   }
 
 //*********EVENT LISTENERS**************
-
-
   document.addEventListener("keyup", ev => {
-
     let keyPressed = ev.keyCode
-
-    if (keyPressed === 74 && !game_end) {
-     jump_up()
+    if (keyPressed === 74 && !gameEnd) {
+     jumpUP()
      canvas.innerHTML += '<audio src="./src/images/jump.wav" autoplay="autoplay">'
    }
  })
 
   document.addEventListener("keydown", ev => {
    let keyPressed = ev.keyCode
-   if (keyPressed === 78 && game_end && !form_active) {
+   if (keyPressed === 78 && gameEnd && !formActive) {
      ctx.clearRect(0, 0, width, height)
     location.reload()
    }
@@ -221,16 +166,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.addEventListener("keydown", ev => {
     let keyPressed = ev.keyCode
-    if (keyPressed === 13 && !form_active) {
+    if (keyPressed === 13 && !formActive) {
       console.log('key down detected, demoState is', demoState)
-      state.projectile_position.x = p_width
+      state.projectilePosition.x = pWidth
      demoState = false
    }
   })
 
   document.addEventListener("keydown", ev => {
     let keyPressed = ev.keyCode
-    if (keyPressed === 83 && game_end && !form_active) {
+    if (keyPressed === 83 && gameEnd && !formActive) {
       showForm()
       console.log('showing form')
      demoState = false
@@ -239,155 +184,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
   window.onclick = function(event) {
   if (event.target == modal) {
-    form_active = false;
+    formActive = false;
     modal.style.display = "none";
     location.reload()
   }
 }
-  //
-  // document.addEventListener("keydown", ev => {
-  //   let keyPressed = ev.keyCode
-  //   if (keyPressed === 77 && game_end && !form_active) {
-  //     showForm()
-  //     console.log('showing form')
-  //    demoState = false
-  //  }
-  // })
-  //
-  // document.addEventListener("keydown", ev => {
-  //   let keyPressed = ev.keyCode
-  //   if (keyPressed === 77 && game_end) {
-  //     form_active = true
-  //     console.log('showing form, form_active is', form_active)
-  //
-  //       showForm()
-
-
-     // demoState = false
-    //  }
-    // })
-
-
-
-  //*********DRAW FUNCTIONS**************
-
- //  function draw_projectile() {
- //    // ctx.fillRect(state.projectile_position.x, state.projectile_position.y, 15, 15)
- //    ctx.drawImage(document.getElementById("dragon"),state.projectile_position.x, state.projectile_position.y, 75, 75)
- //  }
- //
- //  function draw_background() {
- //    ctx.drawImage(document.getElementById("background"),-9, 0, p_width+20, p_height)
- //  }
- //
- //  function draw_jumpman() {
- //     //  ctx.fillStyle = "blue"
- //     // thing2 = ctx.fillRect(state.jumpman_position.x, state.jumpman_position.y, 50, 50)
- //     ctx.drawImage(document.getElementById("chibi"),state.jumpman_position.x, state.jumpman_position.y, 100, 100)
- //  }
- //
- //  function drawInstructions(){
- //   ctx.drawImage(document.getElementById("text"),200, 100, 600, 300)
- //  }
- //
- //  function drawGameOver(){
- //   ctx.drawImage(document.getElementById("gameover"),200, 100, 600, 300)
- //  }
- //
- //  function drawEnd() {
- //      ctx.font = "16px Arial"
- //      ctx.fillStyle = "#0095DD"
- //      ctx.fillText("YOU LOSE SUCKER", 300, 150)
- //  }
- //
- // function drawScore() {
- //     ctx.font = "24px Arial"
- //     ctx.fillStyle = "#BC3429"
- //     ctx.fillText("Score: " + timer, 10, 30)
- // }
-
-
-  // // ************GAME LOOP BEGIN**************
-  // function loop() {
-  //   console.log('gamespeed is', gameSpeed)
-  //   ctx.clearRect(0, 0, width, height)
-  //   checkGameSpeed()
-  //   draw_background()
-  //   draw_jumpman()
-  //   draw_projectile()
-  //   checkCollision()
-  //   drawScore()
-  //   projectile_update()
-  //     if (!game_end){
-  //     window.requestAnimationFrame(loop)
-  //   } else if (game_end) {
-  //     demoState = true
-  //     drawGameOver()
-  //     // location.reload()
-  //     //animate losing frame
-  //     // gameStartCountDown()
-  //     console.log('demoState is', demoState)
-  //   }
-  // }
-
-  //
-	// document.addEventListener("keydown", ev => {
-	// 	let keyPressed = ev.keyCode
-	// 	if (keyPressed === 83 && game_end) {
-	// 		showForm()
-	// 		console.log("showing form")
-	// 		demoState = false
-	// 	}
-	// })
-
-	// document.addEventListener("keydown", ev => {
-	// 	let keyPressed = ev.keyCode
-	// 	if (keyPressed === 77 && game_end) {
-	// 		showForm()
-	// 		console.log("showing form")
-	// 		demoState = false
-	// 	}
-	// })
-
-	// document.addEventListener("keydown", ev => {
-	// 	let keyPressed = ev.keyCode
-	// 	if (keyPressed === 77 && game_end) {
-	// 		showForm()
-	// 		console.log("showing form")
-	// 		demoState = false
-	// 	}
-	// })
 
 	//*********DRAW FUNCTIONS**************
 
-	function draw_projectile() {
-		// ctx.fillRect(state.projectile_position.x, state.projectile_position.y, 15, 15)
+	function drawProjectile() {
 		ctx.drawImage(
 			document.getElementById("dragon"),
-			state.projectile_position.x,
-			state.projectile_position.y,
+			state.projectilePosition.x,
+			state.projectilePosition.y,
 			75,
 			75
 		)
 	}
 
-	function draw_background() {
+	function drawBackground() {
 		ctx.drawImage(
 			document.getElementById("background"),
 			-9,
 			0,
-			p_width + 20,
-			p_height
+			pWidth + 20,
+			pHeight
 		)
 	}
 
-	function draw_jumpman() {
-		//  ctx.fillStyle = "blue"
-		// thing2 = ctx.fillRect(state.jumpman_position.x, state.jumpman_position.y, 50, 50)
+	function drawJumpman() {
 		ctx.drawImage(
 			document.getElementById("chibi"),
-			state.jumpman_position.x,
-			state.jumpman_position.y,
+			state.jumpmanPosition.x,
+			state.jumpmanPosition.y,
 			100,
 			100
 		)
@@ -418,33 +247,28 @@ document.addEventListener('DOMContentLoaded', function () {
 		console.log("gamespeed is", gameSpeed)
 		ctx.clearRect(0, 0, width, height)
 		checkGameSpeed()
-		draw_background()
-		draw_jumpman()
-		draw_projectile()
+		drawBackground()
+		drawJumpman()
+		drawProjectile()
 		checkCollision()
 		drawScore()
-		projectile_update()
-		if (!game_end) {
+		projectileUpdate()
+		if (!gameEnd) {
 			window.requestAnimationFrame(loop)
-		} else if (game_end) {
+		} else if (gameEnd) {
 			demoState = true
 			drawGameOver()
-			// location.reload()
-			//animate losing frame
-			// gameStartCountDown()
 			console.log("demoState is", demoState)
 		}
 	}
 
 	function gameStartCountDown() {
-		game_end = false
+		gameEnd = false
 		ctx.clearRect(0, 0, width, height)
-		draw_background()
-		draw_jumpman()
+		drawBackground()
+		drawJumpman()
 		drawInstructions()
-		// draw_projectile()
-		projectile_update()
-		//  console.log('inside loop demostate is:', demoState)
+		projectileUpdate()
 		if (demoState) {
 			window.requestAnimationFrame(gameStartCountDown)
 		}
@@ -460,10 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		window.requestAnimationFrame(gameStartCountDown)
 	}
 	//**********************GAME INIT***********************
-
-	// window.requestAnimationFrame(loop)
 	gameDemoStart()
-
   adapter.getGames().then(games => {
 		console.log(games)
     gamesArr = games
@@ -480,16 +301,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   })
 
-
 //******************form code********
 
 const formField = document.querySelector("form")
-
 formField.addEventListener("submit", ev => {
 	ev.preventDefault()
-	// const modal = document.querySelector(".modal")
 	const playerName = document.querySelector("#player-name").value
-
 	function renderPlayerName(player) {
 		const playerId = player.id
 		formField.innerHTML = `<h2 id= data-id="${player.id}">
@@ -500,6 +317,6 @@ formField.addEventListener("submit", ev => {
 	}
 	adapter.createPlayer(playerName).then(player => {
 		renderPlayerName(player)
-    form_active = false
+    formActive = false
 	})
 }) // end of the submit action
