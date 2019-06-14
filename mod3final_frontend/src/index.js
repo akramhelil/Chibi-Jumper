@@ -244,7 +244,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// ************GAME LOOP BEGIN**************
 	function loop() {
-		console.log("gamespeed is", gameSpeed)
 		ctx.clearRect(0, 0, width, height)
 		checkGameSpeed()
 		drawBackground()
@@ -258,7 +257,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		} else if (gameEnd) {
 			demoState = true
 			drawGameOver()
-			console.log("demoState is", demoState)
 		}
 	}
 
@@ -286,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	//**********************GAME INIT***********************
 	gameDemoStart()
   adapter.getGames().then(games => {
-		console.log(games)
     gamesArr = games
     gamesArr.sort(function(a,b){
       return b.timer - a.timer;
@@ -302,7 +299,6 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
 //******************form code********
-
 const formField = document.querySelector("form")
 formField.addEventListener("submit", ev => {
 	ev.preventDefault()
